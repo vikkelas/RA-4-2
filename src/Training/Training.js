@@ -49,7 +49,12 @@ function Training() {
         if(submit==='delete'){
             setTraining(()=>training.filter(item=>item.id!==id))
         }
-
+        if(submit==='change'){
+           const changeItem = training.find(item=>item.id===id);
+            setTraining(()=>training.filter(item=>item.id!==id));
+           changeItem.date = changeItem.date.split('.').reverse().join('-');
+           setForm(changeItem)
+        }
     }
 
 
