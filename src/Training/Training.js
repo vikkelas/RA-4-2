@@ -5,6 +5,20 @@ import ListTraining from "../ListTraining/ListTraining";
 
 
 function Training() {
+
+    const [form, setForm] = useState({
+        date: '',
+        distance: '',
+        id: ''
+    });
+
+    const handleChangeForm = (evt) =>{
+        const {name, value} = evt;
+        setForm(prevForm =>({...prevForm, [name]:value }))
+    }
+
+
+
     const [training, setTraining] = useState([]);
     const sortDate = (arr)=>(a,b)=>(a[arr])>(b[arr])?1:-1;
     const handleAddTraining = (value)=>{
@@ -24,6 +38,11 @@ function Training() {
             }
             const sortArr = newArr.sort(sortDate('date'))
            setTraining(() => [...sortArr]);
+            setForm({
+                date: '',
+                distance: '',
+                id: ''
+            })
     }
 
     const handleDeleteTraining = (submit,id)=>{
@@ -38,7 +57,7 @@ function Training() {
 
     return (
         <div className='training'>
-            <AddTraining addTraining={handleAddTraining}/>
+            <AddTraining form={form} changeFor={handleChangeForm} addTraining={handleAddTraining}/>
             <ListTraining training={training} deleteTraining={handleDeleteTraining}/>
         </div>
     );
